@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brython Turtle Graphics</title>
+    <script src="../brython/brython.js"></script>
+    <script src="../brython/brython_stdlib.js"></script>
+    <style>
+        #canvas {
+            border: 1px solid black;
+            width: 500px;
+            height: 500px;
+        }
+        button {
+            margin: 5px;
+        }
+    </style>
+</head>
+<body onload="brython()">
+
+<h2>Brython Turtle Graphics</h2>
+<button id="forward">Forward</button>
+<button id="left">Left 90°</button>
+<button id="right">Right 90°</button>
+<button id="reset">Reset</button>
+<svg id="canvas"></svg>
+
+<script type="text/python">
+from browser import document, svg
+
+# Turtle state
+x, y = 250, 250
+angle = 0
+
+# SVG canvas
+canvas = document["canvas"]
+canvas.attrs["width"] = 500
+canvas.attrs["height"] = 500
+
+# Draw line function
+def draw_line(x1, y1, x2, y2):
+    line = svg.line(x1=x1, y1=y1, x2=x2, y2=y2, stroke="blue", stroke_width=2)
+    canvas <= line
+
+# Button handlers
+def forward(ev):
+    global x, y, angle
+    import math
+    rad = math.radians(angle)
+    new_x = x + 50 * math.cos(rad)
+    new_y = y + 50 * math.sin(rad)
+    draw_line(x, y, new_x, new_y)
+    x, y = new_x, new_y
+
+def left(ev):
+    global angle
+    angle -= 90
+
+def right(ev):
+    global angle
+    angle += 90
+
+def reset(ev):
+    global x, y, angle
+    x, y = 250, 250
+    angle = 0
+    canvas.clear()
+
+# Bind buttons
+document["forward"].bind("click", forward)
+document["left"].bind("click", left)
+document["right"].bind("click", right)
+document["reset"].bind("click", reset)
+
+</script>
+
+</body>
+</html>

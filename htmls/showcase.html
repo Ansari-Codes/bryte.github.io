@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../brython/brython.js"></script>
+    <script src="../brython/brython_stdlib.js"></script>
+</head>
+<body>
+    <header>
+        <nav id="nav"></nav>
+    </header>
+    <script type="text/python">
+from browser import document, html
+def createLink(label, link):
+    return html.A(href=link) <= html.P(label)
+navBar = document['nav']
+for i in ['showcase', 'about']:
+    navBar <= createLink(i.title(), f"{i}.html")
+    </script></body>
+    <div id="list"></div>
+    <script type="text/python">
+from browser import document, html
+def createLink(label, link):
+    return html.A(href=link) <= html.P(label)
+navBar = document['list']
+for i in ['count', 'visit', 'tgs']:
+    navBar <= createLink(i.title(), f"{i}.html")
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brython Showcase - Count</title>
+    <script src="../brython/brython.js"></script>
+    <script src="../brython/brython_stdlib.js"></script>
+</head>
+<body>
+    <script type="text/python">
+from browser import document
+
+class Val:
+    val = 0
+    def update(self):
+        self.val += 1
+        lbl.innerHTML = f"Count: {self.val}"
+        return self.val
+val = Val()
+el = document['inc']
+lbl = document['lbl']
+el.bind("click", lambda evt=None:val.update())
+    </script>
+    <button id="inc">Increment</button>
+    <label id="lbl">Count: 0</label>
+</body>
+</html>
